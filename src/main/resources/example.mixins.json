@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "concerrox.${mod_id}.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "${mod_id}.refmap.json",
+  "mixins": [],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8.4"
+}
