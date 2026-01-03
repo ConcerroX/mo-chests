@@ -8,11 +8,11 @@ plugins {
     alias(libs.plugins.modDevGradle)
 }
 
-val modId = "example"
-val modName = "Example"
+val modId = "mo_chests"
+val modName = "Mo’ Chests"
 version = "1.0.0"
-group = "concerrox.$modId"
-base.archivesName = "$modId-neoforge-${libs.versions.minecraft.get()}"
+group = "concerrox.mochests"
+base.archivesName = "mo-chests-neoforge-${libs.versions.minecraft.get()}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 sourceSets.main.get().resources { srcDir("src/generated/resources") }
@@ -54,6 +54,14 @@ neoForge {
         configureEach {
             systemProperty("forge.logging.markers", "REGISTRIES")
             systemProperty("terminal.ansi", "true")
+
+            val hotSwapAgentPath =
+                "D:/Packages/gradle/jdks/jetbrains_s_r_o_-21-amd64-windows.2/lib/hotswap/hotswap-agent-core.jar"
+            if (file(hotSwapAgentPath).exists()) {
+                jvmArgument("-XX:+AllowEnhancedClassRedefinition")
+                jvmArgument("-XX:HotswapAgent=external")
+                jvmArgument("-javaagent:$hotSwapAgentPath=disablePlugin=log4j2,disablePlugin=proxy")
+            }
             logLevel = Level.DEBUG
         }
     }
@@ -66,15 +74,23 @@ configurations {
 }
 
 repositories {
+    mavenCentral()
     maven("https://thedarkcolour.github.io/KotlinForForge") // Kotlin for Forge
     maven("https://maven.terraformersmc.com") // EMI
     maven("https://api.modrinth.com/maven") // Kotlin for Forge (Runtime)
+    maven("https://maven.firstdark.dev/snapshots") // LDLib 2
 }
+
+fun Provider<MinimalExternalModuleDependency>.get(variant: String): String = get().toString() + ":$variant"
+val Provider<MinimalExternalModuleDependency>.all get() = get("all")
 
 dependencies {
     jarJar(libs.kotlinForForge.runtime)
     localRuntime(libs.kotlinForForge.neoForge)
     localRuntime(libs.emi.neoForge)
+
+    implementation(libs.lowDragLib2.all) { isTransitive = false }
+    compileOnly(libs.yoga)
 }
 
 val generateModMetadata = tasks.register<ProcessResources>("generateModMetadata") {
@@ -90,6 +106,7 @@ val generateModMetadata = tasks.register<ProcessResources>("generateModMetadata"
         "mod_authors" to "ConcerroX",
         "mod_description" to "Lorem ipsum dolor amet. ",
         "kff_version_range" to "[${libs.kotlinForForge.neoForge.get().version},)",
+        "ldlib2_version_range" to "[2,)",
     )
     inputs.properties(replaceProperties)
     expand(replaceProperties)
