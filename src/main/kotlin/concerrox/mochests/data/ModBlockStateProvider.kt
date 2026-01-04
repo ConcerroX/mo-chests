@@ -6,63 +6,32 @@ import net.minecraft.data.PackOutput
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider
 import net.neoforged.neoforge.common.data.ExistingFileHelper
 
+
 class ModBlockStateProvider(
     output: PackOutput, existingFileHelper: ExistingFileHelper
 ) : BlockStateProvider(output, MoChests.MOD_ID, existingFileHelper) {
 
     override fun registerStatesAndModels() {
-//        blockEntityModels(ModelLocationUtils.decorateBlockModelLocation("chest"), Blocks.OAK_PLANKS).createWithoutBlockItem(Blocks.CHEST, Blocks.TRAPPED_CHEST);
+        simpleBlock(
+            ModBlocks.IRON_CHEST.get(),
+            models().getBuilder(ModBlocks.IRON_CHEST.id.toString()).texture("particle", mcLoc("block/iron_block"))
+        )
+        simpleBlock(
+            ModBlocks.GOLD_CHEST.get(),
+            models().getBuilder(ModBlocks.GOLD_CHEST.id.toString()).texture("particle", mcLoc("block/gold_block"))
+        )
+        simpleBlock(
+            ModBlocks.DIAMOND_CHEST.get(),
+            models().getBuilder(ModBlocks.DIAMOND_CHEST.id.toString()).texture("particle", mcLoc("block/diamond_block"))
+        )
+        simpleBlock(
+            ModBlocks.NETHERITE_CHEST.get(),
+            models().getBuilder(ModBlocks.NETHERITE_CHEST.id.toString()).texture("particle", mcLoc("block/netherite_block"))
+        )
+        simpleBlock(
+            ModBlocks.GLASS_CHEST.get(),
+            models().getBuilder(ModBlocks.GLASS_CHEST.id.toString()).texture("particle", mcLoc("block/glass"))
+        )
     }
-
-//    private fun blockEntityModels(
-//        entityBlockModelLocation: ResourceLocation,
-//        particleBlock: Block
-//    ): BlockEntityModelGenerator {
-//        return BlockEntityModelGenerator(entityBlockModelLocation, particleBlock)
-//    }
-
-//    inner class BlockEntityModelGenerator(baseModel: ResourceLocation, particleBlock: Block) {
-//        private val baseModel: ResourceLocation = ModelTemplates.PARTICLE_ONLY.create(
-//            baseModel,
-//            TextureMapping.particle(particleBlock),
-//            this@ModBlockStateProvider.output
-//        )
-//
-//        fun create(vararg blocks: Block): BlockEntityModelGenerator {
-//            for (block in blocks) {
-//                this@BlockModelGenerators.blockStateOutput.accept(
-//                    BlockModelGenerators.createSimpleBlock(
-//                        block,
-//                        this.baseModel
-//                    )
-//                )
-//            }
-//
-//            return this
-//        }
-//
-//        fun createWithoutBlockItem(vararg blocks: Block): BlockEntityModelGenerator {
-//            for (block in blocks) {
-//                this@BlockModelGenerators.skipAutoItemBlock(block)
-//            }
-//
-//            return this.create(*blocks)
-//        }
-//
-//        fun createWithCustomBlockItemModel(
-//            modelTemplate: ModelTemplate,
-//            vararg blocks: Block
-//        ): BlockEntityModelGenerator {
-//            for (block in blocks) {
-//                modelTemplate.create(
-//                    ModelLocationUtils.getModelLocation(block.asItem()),
-//                    TextureMapping.particle(block),
-//                    this@BlockModelGenerators.modelOutput
-//                )
-//            }
-//
-//            return this.create(*blocks)
-//        }
-//    }
 
 }

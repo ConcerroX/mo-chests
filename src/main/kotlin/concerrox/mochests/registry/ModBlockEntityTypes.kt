@@ -15,7 +15,14 @@ object ModBlockEntityTypes {
 
     val CHEST: DeferredHolder<BlockEntityType<*>, BlockEntityType<MoChestBlockEntity>> =
         BLOCK_ENTITY_TYPES.new("chest") {
-            BlockEntityType.Builder.of(::MoChestBlockEntity, ModBlocks.IRON_CHEST.get()).build(null)
+            BlockEntityType.Builder.of(
+                ::MoChestBlockEntity,
+                ModBlocks.IRON_CHEST.get(),
+                ModBlocks.GOLD_CHEST.get(),
+                ModBlocks.DIAMOND_CHEST.get(),
+                ModBlocks.NETHERITE_CHEST.get(),
+                ModBlocks.GLASS_CHEST.get()
+            ).build(null)
         }
 
 }

@@ -4,6 +4,7 @@ import com.lowdragmc.lowdraglib2.gui.holder.IModularUIHolderMenu
 import com.lowdragmc.lowdraglib2.gui.ui.ModularUI
 import com.lowdragmc.lowdraglib2.gui.ui.UI
 import com.lowdragmc.lowdraglib2.gui.ui.UIElement
+import com.lowdragmc.lowdraglib2.gui.ui.style.LayoutStyle
 import com.lowdragmc.lowdraglib2.gui.ui.style.StylesheetManager
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Inventory
@@ -14,4 +15,9 @@ internal fun AbstractContainerMenu.setContent(
 ) {
     val mui = ModularUI.of(UI.of(content(), StylesheetManager.INSTANCE.getStylesheetSafe(styleId)), inventory.player)
     (this as IModularUIHolderMenu).`ldlib2$setModularUI`(mui)
+}
+
+internal fun <T : UIElement> T.layoutStyle(block: LayoutStyle.() -> Unit): T {
+    layout(block)
+    return this
 }

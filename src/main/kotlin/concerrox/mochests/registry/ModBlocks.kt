@@ -15,12 +15,46 @@ object ModBlocks {
 
     val IRON_CHEST = BLOCKS.new("iron_chest") {
         MoChestBlock(BlockBehaviour.Properties.of().apply {
-            mapColor(MapColor.WOOD)
+            mapColor(MapColor.METAL)
+            instrument(NoteBlockInstrument.IRON_XYLOPHONE)
+            strength(5f, 6f)
+            sound(SoundType.METAL)
+            requiresCorrectToolForDrops()
+        }, MoChestBlock.ChestMaterial.IRON)
+    }
+    val GOLD_CHEST = BLOCKS.new("gold_chest") {
+        MoChestBlock(BlockBehaviour.Properties.of().apply {
+            mapColor(MapColor.GOLD)
+            instrument(NoteBlockInstrument.BELL)
+            strength(3f, 6f)
+            sound(SoundType.METAL)
+            requiresCorrectToolForDrops()
+        }, MoChestBlock.ChestMaterial.GOLD)
+    }
+    val DIAMOND_CHEST = BLOCKS.new("diamond_chest") {
+        MoChestBlock(BlockBehaviour.Properties.of().apply {
+            mapColor(MapColor.DIAMOND)
             instrument(NoteBlockInstrument.BASS)
-            strength(2.5f)
-            sound(SoundType.WOOD)
-            ignitedByLava()
-        }) { ModBlockEntityTypes.CHEST.get() }
+            strength(5f, 6f)
+            sound(SoundType.METAL)
+            requiresCorrectToolForDrops()
+        }, MoChestBlock.ChestMaterial.DIAMOND)
+    }
+    val NETHERITE_CHEST = BLOCKS.new("netherite_chest") {
+        MoChestBlock(BlockBehaviour.Properties.of().apply {
+            mapColor(MapColor.COLOR_BLACK)
+            instrument(NoteBlockInstrument.BASS)
+            strength(50f, 1200f)
+            sound(SoundType.NETHERITE_BLOCK)
+            requiresCorrectToolForDrops()
+        }, MoChestBlock.ChestMaterial.NETHERITE)
+    }
+    val GLASS_CHEST = BLOCKS.new("glass_chest") {
+        MoChestBlock(BlockBehaviour.Properties.of().apply {
+            instrument(NoteBlockInstrument.HAT)
+            strength(0.3f)
+            sound(SoundType.GLASS)
+        }, MoChestBlock.ChestMaterial.GLASS)
     }
 
 }
