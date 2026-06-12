@@ -91,6 +91,7 @@ class MoChestBlockMenu(
                     scrollerViewStyle.verticalScrollDisplay(ScrollDisplay.ALWAYS)
                     viewPort.layoutStyle { paddingAll(0f) }
                     viewContainer.layoutStyle {
+                        // todo: use scroll bar size property
                         maxHeight(ITEM_SLOT_SIZE * 10f)
                         width(ITEM_SLOT_SIZE * SLOT_COUNT_OF_ONE_ROW)
                         flexDirection(YogaFlexDirection.ROW)
